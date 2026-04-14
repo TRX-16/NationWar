@@ -1,0 +1,89 @@
+# NationWar 설정 파일
+
+# 게임 시작 안내 메시지
+start-message:
+  lines:
+    - "   §c§l▣ 국가전쟁 점령 시간 ▣"
+    - ""
+    - "   §7지금 이 순간부터 국가전쟁이 시작됩니다."
+    - "   §7자신의 코어를 지키고, 적의 코어를 꿰뚫으십시오."
+  title: "§4§lWAR BEGINS"
+  subtitle: "§e지금부터 모든 코어의 보호막이 해제됩니다!"
+
+# 게임 종료 메시지
+end-message:
+  timeover-title: "§c§lTIME OVER"
+  timeover-subtitle: "§f점령 시간이 종료되었습니다."
+  victory-title: "§6§lVICTORY"
+  victory-subtitle: "§e{team} §f팀이 국가전쟁에서 우승했습니다!"
+
+# 코어 점령 메시지 ({team}=팀명, {id}=코어번호)
+capture-message:
+  broadcast: "§6§l[!] §e{team} §f팀이 §6{id}번 코어§f를 점령했습니다!"
+
+# 침입자 알림 메시지 ({invader}=침입자닉네임, {team}=침입자팀명)
+invader-message:
+  title: "§4§l[!] 침입"
+  subtitle: "§c적팀 코어 구역에 진입했습니다!"
+  team-alert: "§4§l[⚠] 침입자 경보!"
+  team-detail: "  §f적군 §c{invader} §7({team} 팀)§f이 코어 주변에 나타났습니다."
+  team-subtitle: "§c§l침입자 발생!"
+  leave: "§a[!] 구역을 벗어나 보스바와 발광 효과가 해제되었습니다."
+
+# 팀 생성 안내 메시지 ({team}=팀명)
+team-create-message:
+  lines:
+    - "§6§l[ 시스템 ] §e{team} §f팀이 창설되었습니다!"
+    - "§f- §e/메뉴§f를 열어 팀원을 초대하거나 팀 색상을 정하세요."
+    - "§f- 점령 시간에 코어를 공격하여 점령하세요."
+
+# 팀 설정
+team:
+  max-members: 6          # 팀 최대 인원
+  leader-inactive-days: 7  # 팀장 미접속 시 자동 교체 기준 (일)
+  invite-expire-seconds: 60 # 팀 초대 만료 시간 (초)
+
+# 코어 설정
+core:
+  count: 6                 # 생성할 코어 수
+  hp: 5000                 # 코어 초기 체력
+  ghast-health: 1024       # 코어 가스트 체력 (엔진 한계 1024)
+  plate-radius: 2          # 코어 플레이트 반지름 (2 = 5x5)
+  alert-distance: 250      # 보스바/침입 알림 거리 (블록)
+
+# 전투 설정
+combat:
+  logout-time: 20          # 전투로그아웃 판정 시간 (초)
+
+# 월드 설정
+world:
+  border-size: 20000       # 월드보더 크기
+  spawn-range: 5000        # 게임 시작 시 랜덤 스폰 범위 (중앙 기준 ±값)
+  core-range: 20000        # 코어 생성 범위 (중앙 기준 ±값의 절반)
+
+# 점령 시간 설정 (24시간제)
+capture-time:
+  start-hour: 17           # 점령 시작 시간
+  end-hour: 19             # 점령 종료 시간
+  days:                    # 점령 요일 (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY)
+    - SATURDAY
+    - SUNDAY
+
+# UI 포맷
+format:
+  separator: "§8§l[ §4§l! §8§l] §f------------------------------------------ §8§l[ §4§l! §8§l]"
+  core-hp-bar: "§e[CORE {id}] §fHP: §c{hp} §7/ {max}"
+  core-status: "§7현재 점령 현황 §8| "
+  victory-separator: "§f§m-----------------------------------"
+  victory-header: "§e§l[!] §f국가전쟁 종료"
+  victory-winner: "§e최종 우승팀: §f{team}"
+  shield-active: "§c§l[!] 보호막 작동 중! (점령 시간이 아닙니다)"
+  core-status-prefix: "§7현재 점령 현황 §8| "
+  bossbar-title: "§6§l{team} §f팀의 코어 §7| §c{hp} HP"
+  reset-complete: "§c§l[!] §f모든 팀 데이터와 코어 상태가 초기화되었습니다."
+  respawn-complete: "§6§l[!] §f모든 코어 가스트가 성공적으로 재생성되었습니다."
+
+# TPA 설정
+tpa:
+  cooldown-minutes: 20     # TPA 쿨타임 (분)
+  expire-seconds: 60       # TPA 요청 만료 시간 (초)

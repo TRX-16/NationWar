@@ -1,0 +1,33 @@
+name: NationWar
+version: 2.0
+main: com.nationwar.NationWar
+api-version: 1.21
+commands:
+  메뉴:
+    description: 팀 메뉴를 엽니다.
+  팀:
+    description: 팀 생성 및 관리 명령어입니다.
+    usage: /팀 <이름>
+  tpa:
+    description: 팀원에게 텔레포트 요청을 보냅니다.
+    usage: /tpa <플레이어>
+  국가창고:
+    description: 국가 창고를 엽니다.
+  팀탈퇴:
+    description: 현재 소속된 팀에서 탈퇴합니다.
+  팀정보:
+    description: 팀원 목록과 온/오프라인 상태를 조회합니다.
+    usage: /팀정보 [팀이름]
+  gamestart:
+    description: 전쟁을 시작합니다. (관리자 전용)
+    permission: nationwar.admin
+    permission-message: §c[!] 당신은 이 명령어를 사용할 권한이 없습니다.
+  gamecontinue:
+    description: 전쟁을 재개합니다. (관리자 전용)
+    permission: nationwar.admin
+    permission-message: §c[!] 당신은 이 명령어를 사용할 권한이 없습니다.
+
+permissions:
+  nationwar.admin:
+    description: 국가전쟁 관리자 권한입니다.
+    default: op

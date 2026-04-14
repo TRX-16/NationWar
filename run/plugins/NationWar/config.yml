@@ -1,0 +1,26 @@
+# NationWar 설정 파일
+
+# 팀 설정
+team:
+  max-members: 10          # 팀 최대 인원
+
+# 코어 설정
+core:
+  count: 6                 # 생성할 코어 수
+  hp: 5000                 # 코어 초기 체력
+  plate-radius: 2          # 코어 플레이트 반지름 (2 = 5x5)
+  alert-distance: 250      # 보스바/침입 알림 거리 (블록)
+
+# 월드 설정
+world:
+  border-size: 15000       # 월드보더 크기
+  spawn-range: 2000        # 게임 시작 시 랜덤 스폰 범위 (중앙 기준 ±값)
+  core-range: 15000        # 코어 생성 범위 (중앙 기준 ±값의 절반)
+
+# 점령 시간 설정 (24시간제)
+capture-time:
+  start-hour: 19           # 점령 시작 시간
+  end-hour: 22             # 점령 종료 시간
+  days:                    # 점령 요일 (MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY)
+    - SATURDAY
+    - SUNDAY

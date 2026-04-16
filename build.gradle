@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'com.nationwar'
-version = '1.4-HOTFIX'
+version = '2.01'
 
 repositories {
     mavenCentral()

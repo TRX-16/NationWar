@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import java.io.File;
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,9 +28,7 @@ public class CoreMain {
         this.coreData = CoreGson.load(coreFile);
     }
 
-    public CoreGson.CoreData getCoreData() {
-        return coreData;
-    }
+    public CoreGson.CoreData getCoreData() { return coreData; }
 
     public boolean reloadCoreFromConfig() { // 추가됨
         this.coreData = CoreGson.load(coreFile);
@@ -87,9 +84,7 @@ public class CoreMain {
 
             CoreGson.CoreInfo info = new CoreGson.CoreInfo();
             info.id = i;
-            info.x = x;
-            info.y = y;
-            info.z = z;
+            info.x = x; info.y = y; info.z = z;
             info.hp = coreHp;
             coreData.cores.add(info);
 
@@ -133,9 +128,7 @@ public class CoreMain {
         }
     }
 
-    public boolean isGameStarted() {
-        return gameStarted;
-    }
+    public boolean isGameStarted() { return gameStarted; }
 
     public void setGameStarted(boolean started) {
         this.gameStarted = started;
@@ -156,7 +149,6 @@ public class CoreMain {
     public void startCaptureEvent() {
         new BukkitRunnable() {
             int count = 5;
-
             @Override
             public void run() {
                 if (count <= 0) {
@@ -182,9 +174,10 @@ public class CoreMain {
 
                 int endHour = plugin.getConfig().getInt("capture-time.end-hour", 22);
 
-                if (hour == endHour && min == 0 && sec == 0) {
+                // 종료 시각 + 점령 요일인지 둘 다 확인
+                if (hour == endHour && min == 0 && sec == 0 && isCaptureDay()) {
                     if (isGameStarted()) {
-                        String timeoverTitle = plugin.getConfig().getString("end-message.timeover-title", "§c§lTIME OVER");
+                        String timeoverTitle    = plugin.getConfig().getString("end-message.timeover-title",    "§c§lTIME OVER");
                         String timeoverSubtitle = plugin.getConfig().getString("end-message.timeover-subtitle", "§f점령 시간이 종료되었습니다.");
                         for (org.bukkit.entity.Player p : Bukkit.getOnlinePlayers()) {
                             p.sendTitle(timeoverTitle, timeoverSubtitle, 10, 70, 20);
@@ -248,7 +241,7 @@ public class CoreMain {
         Bukkit.broadcastMessage(sep);
         Bukkit.broadcastMessage("");
 
-        String title = plugin.getConfig().getString("start-message.title", "§4§lWAR BEGINS");
+        String title    = plugin.getConfig().getString("start-message.title",    "§4§lWAR BEGINS");
         String subtitle = plugin.getConfig().getString("start-message.subtitle", "§e지금부터 모든 코어의 보호막이 해제됩니다!");
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.sendTitle(title, subtitle, 10, 70, 20);
@@ -256,25 +249,20 @@ public class CoreMain {
         }
     }
 
-    public boolean isCaptureTime() {
-        LocalDateTime now = LocalDateTime.now();
-        DayOfWeek day = now.getDayOfWeek();
-        int hour = now.getHour();
-
-        int startHour = plugin.getConfig().getInt("capture-time.start-hour", 19);
-        int endHour = plugin.getConfig().getInt("capture-time.end-hour", 22);
-
+    /** 오늘이 점령 요일인지만 확인 */
+    public boolean isCaptureDay() {
+        java.time.DayOfWeek day = LocalDateTime.now().getDayOfWeek();
         java.util.List<String> configDays = plugin.getConfig().getStringList("capture-time.days");
-        boolean isDay = configDays.stream()
-                .anyMatch(d -> d.equalsIgnoreCase(day.name()));
-
-        boolean isHour = (hour >= startHour && hour < endHour);
-
-        return isDay && isHour;
+        return configDays.stream().anyMatch(d -> d.equalsIgnoreCase(day.name()));
     }
 
-    public void saveCores() {
-        CoreGson.save(coreFile, coreData);
+    public boolean isCaptureTime() {
+        int hour      = LocalDateTime.now().getHour();
+        int startHour = plugin.getConfig().getInt("capture-time.start-hour", 19);
+        int endHour   = plugin.getConfig().getInt("capture-time.end-hour", 22);
+        return isCaptureDay() && (hour >= startHour && hour < endHour);
     }
+
+    public void saveCores() { CoreGson.save(coreFile, coreData); }
 
 }
